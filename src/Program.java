@@ -1,3 +1,5 @@
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -217,22 +219,19 @@ public class Program {
 
     public String toString() { return new String(b,0,i_end); }
 
-    public static void main(String[] args) {
-        Scanner scannerName = new Scanner(System.in);
-        String w = scannerName.next();
-        Pattern p = Pattern.compile("[a-zA-Z]+");
-        Matcher m = p.matcher(w);
+    public static void main(String[] args) throws FileNotFoundException {
+        File file = new File("src/res/voc.txt");
+        Scanner input = new Scanner(file);
 
-        if (m.matches()){
-            Program program = new Program(w, w.length());
+        while (input.hasNext()) {
+            String word = input.next();
+            Program program = new Program(word, word.length());
             program.steps();
-            {  String u;
-                u = program.toString();
-                System.out.print(u);
+            {
+                String new_word;
+                new_word = program.toString();
+                System.out.println(word + " | " + new_word);
             }
-        }
-        else {
-            System.out.println("Error");
         }
     }
 }
